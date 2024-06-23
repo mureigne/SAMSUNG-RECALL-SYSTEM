@@ -1,7 +1,6 @@
 package pages;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -12,6 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class StartPage {
 
@@ -98,5 +100,27 @@ public class StartPage {
 		btnSubmit.setBounds(228, 130, 100, 25);
 		panel.add(btnSubmit);
 		btnSubmit.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		// Action listener for the reset button
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textFieldSerial.setText("");
+			}
+		});
+		
+		// Action listener for the submit button
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String serial = textFieldSerial.getText();
+				if (serial.isEmpty()) {
+					JOptionPane.showMessageDialog(frmStartPage, "Please enter the device's serial number.", "Input Required", JOptionPane.WARNING_MESSAGE);
+				} else {
+					// Proceed to the MainMenu frame
+					MainMenu mainMenu = new MainMenu();
+					mainMenu.main(null);
+					frmStartPage.dispose();
+				}
+			}
+		});
 	}
 }
